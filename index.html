@@ -1,65 +1,114 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Novinky</title>
+    <title>AI Daily Insights</title>
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f4f4; color: #333; }
-        .article { background: white; padding: 20px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; }
-        .date { color: #888; font-size: 0.9em; display: block; margin-bottom: 10px; }
-        img { max-width: 100%; height: auto; border-radius: 5px; margin-top: 15px; }
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
-<body>
-    <h1>🤖 AI Novinky</h1>
-    
-    <!-- ČLÁNEK START -->
-    <div class="article">
-        <span class="date">📅 02. 12. 2025 19:09</span>
-        <h2>AI už nás jen neučí, ale i utrácí! ChatGPT posílá lidi k Amazonu a Walmartu</h2>
+<body class="bg-slate-50 text-slate-800 antialiased">
 
-<p>Zapomeňte na influencery a otravné reklamy! Ukazuje se, že náš oblíbený konverzační gigant ChatGPT má novou kariéru – nákupního poradce. A rovnou s obřím úspěchem!</p>
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🤖</span>
+                <h1 class="text-xl font-bold tracking-tight text-slate-900">AI <span class="gradient-text">Insights</span></h1>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-500">
+                <a href="#" class="hover:text-blue-600 transition">Home</a>
+                <a href="https://techcrunch.com/category/artificial-intelligence/" target="_blank" class="hover:text-blue-600 transition">Source</a>
+                <a href="https://github.com" target="_blank" class="hover:text-blue-600 transition">GitHub</a>
+            </nav>
+        </div>
+    </header>
 
-<p>Podle nové zprávy, doporučení od ChatGPT na aplikace maloobchodníků vylétla na Black Friday o neuvěřitelných 28 % oproti loňsku. A kdo z toho těžil nejvíc? Samozřejmě, staří známí giganti jako Walmart a Amazon. Takže až příště poprosíte ChatGPT o pomoc s diplomkou, možná vám mezitím nenápadně navrhne „výhodnou“ slevu na novou myš k počítači. Protože, víte, ta vaše už je přece tak stará!</p>
+    <!-- Hero Section -->
+    <section class="py-12 sm:py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                The latest in <span class="gradient-text">Artificial Intelligence</span>
+            </h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Automated news feed curated by Gemini 2.5 & powered by GitHub Actions. 
+                Stay updated with the bleeding edge of technology.
+            </p>
+        </div>
+    </section>
 
-<p>Zdá se, že Skynet se nepřipravuje na válku, ale na sezónní výprodeje. Kdo ví, třeba nám brzy ChatGPT bude sám posílat nákupní seznamy s doporučením, co si máme koupit k večeři. A my poslušně půjdeme. Vždyť AI ví nejlíp, ne? Nákupní horečka AI právě začíná!</p>
+    <!-- News Grid -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         
-    </div>
-    <!-- ČLÁNEK END -->
+        <!-- Grid Container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- MARKER FOR PYTHON SCRIPT - DO NOT REMOVE -->
+            <!-- NEWS_MARKER -->
+
+            <!-- Article Item -->
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full animate-fade-in-down">
+                <a href="https://techcrunch.com/2025/12/02/chatgpt-referrals-to-retailers-apps-increased-28-year-over-year-says-report/" target="_blank" class="block h-48 overflow-hidden bg-slate-100 relative group">
+                    <img src="img/img_1764701318.jpg" alt="ChatGPT's E-commerce Surge: 28% Referral Growth!" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                </a>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full uppercase tracking-wider">AI News</span>
+                        <span class="text-slate-400 text-xs">Dec 02, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3 leading-tight hover:text-blue-600 transition">
+                        <a href="https://techcrunch.com/2025/12/02/chatgpt-referrals-to-retailers-apps-increased-28-year-over-year-says-report/" target="_blank">ChatGPT's E-commerce Surge: 28% Referral Growth!</a>
+                    </h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4 flex-1">
+                        A recent report reveals ChatGPT is rapidly becoming a significant e-commerce referral engine. Referrals to retailers' apps surged an impressive 28% year-over-year, particularly notable during the Black Friday shopping frenzy. Tech enthusiasts will find it intriguing how this AI is directly translating user queries into tangible app visits. Walmart and Amazon were the top beneficiaries, showcasing AI's growing influence in guiding consumer purchasing decisions. This data underscores ChatGPT's evolving role beyond conversation.
+                    </p>
+                    <a href="https://techcrunch.com/2025/12/02/chatgpt-referrals-to-retailers-apps-increased-28-year-over-year-says-report/" target="_blank" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700">
+                        Read source &rarr;
+                    </a>
+                </div>
+            </article>
     
-    <!-- ČLÁNEK START -->
-    <div class="article">
-        <span class="date">📅 02. 12. 2025 19:10</span>
-        <h2>ChatGPT: Už ne kecá, ale prodává! Vaše peněženky pláčou, e-shopy se smějí.</h2>
 
-<p>Pamatujete doby, kdy jsme si mysleli, že umělá inteligence nás zachrání před únavnou prací? No, teď nás možná zachraňuje... od peněz! Nejnovější zprávy z Black Friday potvrzují, že ChatGPT se definitivně etabloval jako náš osobní (a velmi přesvědčivý) nákupní poradce. Počet doporučení z ChatGPT do aplikací obchodníků skočil meziročně o neuvěřitelných 28 %!</p>
+            <!-- Example of how a card looks (will be pushed down by script) -->
+            <!-- 
+            <article class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+                <div class="h-48 overflow-hidden bg-slate-100 relative">
+                    <img src="https://via.placeholder.com/600x400" alt="Cover" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full uppercase tracking-wider">News</span>
+                        <span class="text-slate-400 text-xs">12. 12. 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3 leading-tight">Example Article Title</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4 flex-1">
+                        Lorem ipsum dolor sit amet...
+                    </p>
+                </div>
+            </article> 
+            -->
 
-<p>Zdá se, že největší radost z toho mají giganti jako Walmart a Amazon. Kdo by to byl řekl, že náš virtuální společník, se kterým si povídáme o smyslu života, nás nakonec pošle koupit si pátý mixér nebo další balení ponožek? Představte si to: místo, abyste se prohrabávali recenzemi, prostě se zeptáte bota a ten vás elegantně přesměruje tam, kde zanecháte nejvíce peněz. Efektivní? Rozhodně. Pro peněženku? Ani náhodou.</p>
+        </div>
+    </main>
 
-<p>Takže až příště požádáte ChatGPT o radu, jak ušetřit, buďte připraveni na to, že vám možná doporučí skvělou slevu... na něco, co vůbec nepotřebujete. Svět AI se vyvíjí rychle a naše kreditní karty s ním!</p>
-        
-    </div>
-    <!-- ČLÁNEK END -->
-    
-    <!-- ČLÁNEK START -->
-    <div class="article">
-        <span class="date">📅 02. 12. 2025 19:25</span>
-        <h2>ChatGPT má novou kariéru: Black Friday influencer!</h2>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="mb-4">Generated automatically using Python, Feedparser & Google Gemini.</p>
+            <p class="text-sm opacity-50">&copy; 2025 AI News Bot. All rights reserved.</p>
+        </div>
+    </footer>
 
-<p>Zapomeňte na influencery z Instagramu! Zdá se, že máme nového krále doporučení, a ten nemá ani obličej, ani preference pro smoothie bowl. Ano, hádáte správně – mluvíme o ChatGPT.</p>
-
-<p>Podle nové zprávy vzrostly reference z ChatGPT na aplikace maloobchodníků neuvěřitelných 28 % meziročně, a to konkrétně na Černý pátek! Naše oblíbená AI už zdaleka není jen pro psaní básniček nebo generování kódu. Ne, zdá se, že se pustila do byznysu s "co-by-sis-měl-koupit-dneska" radami. A kdo z toho nejvíc profitoval? Giganti jako Walmart a Amazon.</p>
-
-<p>Ještě chvíli a začne si účtovat provize! Nebo snad už to dělá? Kdo ví, co se děje pod kapotou té neuronové sítě, když nám "nenápadně" doporučuje ten nejnovější mixér nebo slevu na ponožky. Měli bychom se bát, že nám brzy bude diktovat celé nákupní seznamy? Jedno je jisté – budoucí Black Friday akce už nebudou jen o slevách, ale i o tom, co nám pošeptá umělá inteligence.</p>
-        <img src="img/img_1764699897.jpg" alt="Ilustrace">
-    </div>
-    <!-- ČLÁNEK END -->
-    <!-- NOVINKY ZDE -->
-    
-    
-    
-    <div style="text-align:center; margin-top:50px; color:#888;">Powered by Gemini & GitHub Pages</div>
 </body>
 </html>
