@@ -119,7 +119,7 @@ def stahnout_obrazek(tema_clanku):
     encoded_prompt = urllib.parse.quote(image_prompt)
     seed = int(datetime.datetime.now().timestamp())
     
-    # OPRAVA: Zde byla ta chyba s dvojitým odkazem [https://...](https://...).
+    # OPRAVA: Odstraněna chyba s dvojitým odkazem
     # Teď je to čisté URL:
     image_url = f"[https://image.pollinations.ai/prompt/](https://image.pollinations.ai/prompt/){encoded_prompt}?seed={seed}&nologo=true"
     
