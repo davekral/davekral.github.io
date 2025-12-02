@@ -25,6 +25,28 @@ ZNACKA_PRO_VLOZENI = "<!-- NOVINKY ZDE -->"
 # Inicializace nového klienta pro Gemini 2.5
 client = genai.Client(api_key=GOOGLE_API_KEY)
 
+# Záložní HTML pro případ, že se soubor rozbije (Samooprava)
+DEFAULT_HTML = """<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Novinky</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f4f4; color: #333; }
+        .article { background: white; padding: 20px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        .date { color: #888; font-size: 0.9em; display: block; margin-bottom: 10px; }
+        img { max-width: 100%; height: auto; border-radius: 5px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <h1>🤖 AI Novinky</h1>
+    <!-- NOVINKY ZDE -->
+    <div style="text-align:center; margin-top:50px; color:#888;">Powered by Gemini & GitHub Pages</div>
+</body>
+</html>
+"""
 
 # ==========================================
 # 2. FUNKCE
@@ -77,18 +99,19 @@ def stahnout_obrazek(tema_clanku):
     """Vygeneruje obrázek přes Pollinations.ai."""
     print("3. 🎨 Generuji obrázek (Pollinations)...")
     
-    # 1. Necháme Gemini vymyslet prompt
-    prompt_zadani = f"Vymysli VELMI KRÁTKÝ (max 5 slov) anglický popis obrázku k tématu: '{tema_clanku}'. Styl: cyberpunk, futuristic, 8k."
+    # 1. Necháme Gemini vymyslet prompt (přísnější instrukce, aby nekecal)
+    prompt_zadani = f"Create a short image prompt (max 5 words) for: '{tema_clanku}'. Return ONLY the prompt text."
     
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=prompt_zadani
     )
     
+    # Ošetření, aby vzal jen první řádek (kdyby Gemini zase kecal)
     if response.text:
-        image_prompt = response.text.strip()
+        image_prompt = response.text.strip().split('\n')[0]
     else:
-        image_prompt = "Futuristic AI technology, cyberpunk style" # Fallback
+        image_prompt = "Futuristic AI technology"
         
     print(f"   - Prompt: {image_prompt}")
 
@@ -96,7 +119,8 @@ def stahnout_obrazek(tema_clanku):
     encoded_prompt = urllib.parse.quote(image_prompt)
     seed = int(datetime.datetime.now().timestamp())
     
-    # OPRAVENO: Odstraněna chyba s dvojitým odkazem
+    # OPRAVA: Zde byla ta chyba s dvojitým odkazem [https://...](https://...).
+    # Teď je to čisté URL:
     image_url = f"[https://image.pollinations.ai/prompt/](https://image.pollinations.ai/prompt/){encoded_prompt}?seed={seed}&nologo=true"
     
     # 3. Stažení
@@ -126,8 +150,24 @@ def stahnout_obrazek(tema_clanku):
 def aktualizovat_html(clanek_html, obrazek_cesta):
     """Vloží nový článek do index.html."""
     print("4. 📝 Zapisuji do index.html...")
-    datum = datetime.datetime.now().strftime("%d. %m. %Y %H:%M")
     
+    # SAMOOPRAVA: Pokud soubor neexistuje, vytvoříme ho
+    if not os.path.exists(HTML_SOUBOR):
+        print("   ⚠️ index.html neexistuje, vytvářím nový...")
+        with open(HTML_SOUBOR, "w", encoding="utf-8") as f:
+            f.write(DEFAULT_HTML)
+
+    with open(HTML_SOUBOR, "r", encoding="utf-8") as f:
+        obsah = f.read()
+    
+    # SAMOOPRAVA: Pokud chybí značka, resetujeme soubor
+    if ZNACKA_PRO_VLOZENI not in obsah:
+        print("   ⚠️ Značka chybí, resetuji index.html...")
+        with open(HTML_SOUBOR, "w", encoding="utf-8") as f:
+            f.write(DEFAULT_HTML)
+        obsah = DEFAULT_HTML
+
+    datum = datetime.datetime.now().strftime("%d. %m. %Y %H:%M")
     img_tag = f'<img src="{obrazek_cesta}" alt="Ilustrace">' if obrazek_cesta else ""
 
     novy_html_blok = f"""
@@ -141,20 +181,10 @@ def aktualizovat_html(clanek_html, obrazek_cesta):
     {ZNACKA_PRO_VLOZENI}
     """
     
-    try:
-        with open(HTML_SOUBOR, "r", encoding="utf-8") as f:
-            obsah = f.read()
-        
-        if ZNACKA_PRO_VLOZENI in obsah:
-            novy_obsah = obsah.replace(ZNACKA_PRO_VLOZENI, novy_html_blok)
-            with open(HTML_SOUBOR, "w", encoding="utf-8") as f:
-                f.write(novy_obsah)
-            print("   - HTML aktualizováno.")
-        else:
-            print(f"❌ CHYBA: V souboru {HTML_SOUBOR} chybí značka {ZNACKA_PRO_VLOZENI}.")
-            
-    except FileNotFoundError:
-        print(f"❌ CHYBA: Soubor {HTML_SOUBOR} neexistuje!")
+    novy_obsah = obsah.replace(ZNACKA_PRO_VLOZENI, novy_html_blok)
+    with open(HTML_SOUBOR, "w", encoding="utf-8") as f:
+        f.write(novy_obsah)
+    print("   - HTML aktualizováno.")
 
 def pushnout_na_github():
     """Odešle změny na internet."""
